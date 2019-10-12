@@ -4,7 +4,7 @@
 
 using namespace omnetpp;
 
-class Channel: public cSimpleModule
+class Server: public cSimpleModule
 {
 private:
     int max_tokens;
@@ -15,22 +15,22 @@ private:
     int max_queue_size;
 
 public:
-    Channel();
-    virtual ~Channel();
+  Server();
+    virtual ~Server();
 
 protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
 };
 
-Define_Module(Channel);
+Define_Module(Server);
 
-Channel::Channel()
+Server::Server()
 {
     event = nullptr;
 }
 
-Channel::~Channel()
+Server::~Server()
 {
     cancelAndDelete(event);
 }
@@ -38,7 +38,7 @@ Channel::~Channel()
 //Initialize maximum token limit
 //Initialize maximum size of the queue
 //Schedule token event
-void Channel:: initialize() {
+void Server:: initialize() {
     max_tokens = par("token_limit");
     max_queue_size = par("queue_limit");
     token_num = max_tokens;
@@ -52,7 +52,7 @@ void Channel:: initialize() {
 //Handle the packets received from source
 //Handle the token event
 //Send the packets stored in queue according to the token value and no. of packets
-void Channel:: handleMessage(cMessage *msg) {
+void Server:: handleMessage(cMessage *msg) {
     if(msg == event) {
             //increment the token number and check if there are packets in the queue.
             if (token_num < max_tokens) {
