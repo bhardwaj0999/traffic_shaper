@@ -12,10 +12,10 @@ protected:
 
 Define_Module(Sink);
 
-//Handle the packets received from source via channel
+//Handle the packets received from source via server
 void Sink:: handleMessage(cMessage *msg)
 {
-    EV <<"Message received from channel\n";
+    EV <<"Message received from serverl\n";
     EV << msg << "\n";
     delete msg;
    // EV <<"discarded msg\n";
